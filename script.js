@@ -81,8 +81,10 @@ async function initializeMediaCatalog() {
 // Replace your old casual loadPage() startup call with this cloud fetch check line:
 window.addEventListener('DOMContentLoaded', initializeMediaCatalog);
 
-function loadPage() {
+async function loadPage() {
     videoGridWrapper.innerHTML = ""
+
+    
 
     player.pause();
 
@@ -90,6 +92,7 @@ function loadPage() {
     homePage.classList.add('active');
 
     Array.from(vids).forEach(video => {
+
         const videoCard = document.createElement('div');
         const thumbnail = document.createElement('img');
         const title = document.createElement('p');
@@ -99,7 +102,24 @@ function loadPage() {
 
         title.textContent = video.name;
 
-        thumbnail.src = video.thumbnail;
+
+        if (video.thumbnail && video.thumbnail.trim() !== "") {
+            thumbnail.src = video.thumbnail;
+        } else {
+            const fallbackVideo = document.createElement('video');
+            fallbackVideo.src = video.src;
+    
+            // ⚠️ CRITICAL CONFIGURATION: Stops the video from playing audio or wasting 
+            // network bandwidth, telling the browser to load ONLY the first frame snapshot!
+            fallbackVideo.preload = "metadata"; 
+            fallbackVideo.muted = true;
+            fallbackVideo.playsInline = true;
+            
+            // Optional: Snaps the frame to exactly 1 second in if the first frame is total black screen darkness
+            fallbackVideo.currentTime = 1; 
+
+            videoCard.appendChild(fallbackVideo);
+        }
 
         videoCard.dataset.src = video.src;
         videoCard.dataset.name = video.name;
