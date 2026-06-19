@@ -11,45 +11,45 @@
         "src": "https://github.com/MintyDaCat/meTube/releases/download/video-upload/videoplayback-1.mp4",
         "type": "video"
     },
-     {
+    {
         "name": "",
         "thumbnail": "",
         "src": "https://github.com/MintyDaCat/meTube/releases/download/video-upload/videoplayback-2.mp4",
         "type": "video"
     },
     
-     {
+    {
         "name": "",
         "thumbnail": "",
         "src": "https://github.com/MintyDaCat/meTube/releases/download/video-upload/videoplayback-3.mp4",
         "type": "video"
     },
     
-     {
+    {
         "name": "",
         "thumbnail": "",
         "src": "https://github.com/MintyDaCat/meTube/releases/download/video-upload/videoplayback-4.mp4",
         "type": "video"
     },
     
-     {
+    {
         "name": "",
         "thumbnail": "",
         "src": "https://github.com/MintyDaCat/meTube/releases/download/video-upload/videoplayback-5.mp4",
         "type": "video"
     },
     
-     {
+    {
         "name": "",
         "thumbnail": "",
         "src": "https://github.com/MintyDaCat/meTube/releases/download/video-upload/videoplayback.mp4",
         "type": "video"
     },
     
-     {
+    {
         "name": "",
         "thumbnail": "",
         "src": "https://github.com/MintyDaCat/meTube/releases/download/video-upload/why.roblox.mp4",
         "type": "video"
-    },
+    }
 ]
