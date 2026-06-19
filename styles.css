@@ -168,6 +168,8 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #000000;
+    flex-shrink: 1;
+    aspect-ratio: 16/9;
 }
 
 .video-card {
@@ -340,6 +342,8 @@ body {
     border: 2px dashed #ff9100;
     border-radius: 1.1rem;
     flex-direction: column;
+    width: 80%;
+    height: 80%;
 }
 
 .Upload-input {
@@ -372,13 +376,16 @@ body {
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 1000px) {
     .video-card {
         flex-basis: 100%;
     }
+    .top-bar {
+        height: 100px;
+    }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1200px) {
     .video-card {
         flex-basis: 32%;
     }
