@@ -31,31 +31,51 @@ let vids = [];
 
 // 2. ⚡️ THE AUTOMATIC DATABASE FETCH LOADER ⚡️
 async function initializeMediaCatalog() {
-    console.log("Contacting GitHub storage pipelines...");
+    console.log("Contacting GitHub Pages storage network...");
     
-    // Add a timestamp query to stop the browser from aggressively caching old versions!
-    const liveJsonFeedUrl = `https://githubusercontent.com{GITHUB_USER}/${GITHUB_REPO}/main/database.json?t=${Date.now()}`;
+    // 1. Get the base domain (e.g., http://127.0.0.1:3000 or https://github.io)
+    const baseOrigin = window.location.origin;
+    
+    // 2. Get the folder path and strip out any actual page filenames like 'index.html'
+    let folderPath = window.location.pathname;
+    if (folderPath.endsWith('.html')) {
+        // Splits the path by slashes, removes the filename, and joins it back together
+        folderPath = folderPath.substring(0, folderPath.lastIndexOf('/'));
+    }
+    
+    // 3. Ensure a clean trailing slash structure
+    if (!folderPath.endsWith('/')) {
+        folderPath += '/';
+    }
+    
+    // ⚡️ THE BULLETPROOF FIX: Perfectly clean root directory folder pathway! ⚡️
+    const liveJsonFeedUrl = `${baseOrigin}${folderPath}database.json?t=${Date.now()}`;
+    
+    console.log("Targeting direct repository file route:", liveJsonFeedUrl);
     
     try {
         const response = await fetch(liveJsonFeedUrl);
         
         if (response.ok) {
-            // Unpack the JSON file rows directly into your vids variable array
             vids = await response.json();
-            console.log(`✓ Synchronized ${vids.length} media records from cloud database.`);
+            console.log(`✓ Success! Synchronized ${vids.length} media entries from database.json.`);
             
-            // Fire your working NRY factory loop to draw all cards onto the homepage grid!
-            loadPage(); 
+            if (typeof loadPage === 'function') {
+                loadPage(); 
+            }
         } else {
-            console.warn("Database loaded but returned an error status.");
-            loadPage();
+            console.warn(`Database path matched, but server returned error code: ${response.status}`);
+            if (typeof loadPage === 'function') loadPage();
         }
     } catch (err) {
         console.error("Critical storage tracking failure. Falling back to empty array:", err);
         vids = [];
-        loadPage();
+        if (typeof loadPage === 'function') {
+            loadPage();
+        }
     }
 }
+
 
 // ⚡️ INITIALIZE AUTOMATICALLY ON PAGE LOAD ⚡️
 // Replace your old casual loadPage() startup call with this cloud fetch check line:
